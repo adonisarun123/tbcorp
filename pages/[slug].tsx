@@ -10,7 +10,6 @@ import remarkGfm from 'remark-gfm';
 import remarkRehype from 'remark-rehype';
 import rehypeStringify from 'rehype-stringify';
 import rehypeHighlight from 'rehype-highlight';
-import { processMarkdownContent } from '@lib/markdown-utils';
 
 interface Props {
   title: string;
@@ -398,8 +397,8 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
   const slug = params?.slug as string;
   const doc = getDocBySlug(slug);
   
-  // Apply our custom transformations
-  const processedContent = processMarkdownContent(doc.content);
+  // Simple approach: just remove first H1 to avoid HTML element issues
+  const processedContent = doc.content.replace(/^#\s+.*$/m, "");
   
   const processed = await remark()
     

@@ -5,7 +5,7 @@ import MarketChart from '@components/MarketChart';
 import CompanyComparison from '@components/CompanyComparison';
 import type { GetStaticPaths, GetStaticProps } from 'next';
 import { remark } from 'remark';
-import remarkParse from 'remark-parse';
+
 import remarkGfm from 'remark-gfm';
 import remarkRehype from 'remark-rehype';
 import rehypeStringify from 'rehype-stringify';
@@ -402,7 +402,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
   const processedContent = processMarkdownContent(doc.content);
   
   const processed = await remark()
-    .use(remarkParse)
+    
     .use(remarkGfm)
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeHighlight)
